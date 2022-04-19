@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <form class="wrap">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="For example google.ru">
+            <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+{% endblock content %}
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock script %}

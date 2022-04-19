@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static poll_extras %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <style>.wrap{position:relative;transform:none;left:0}.searchTerm{border:3px solid #00b4cc;border-radius:5px}</style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+{% endblock style %}
+
+{% block content %}
+    <a href="/">Главная страница</a><br><br>
+    
+    {% if table.values|length > 0 %}
+        <table class="responstable" id="table">
+            <thead>
+                <tr>
+                    {% for head in table.headers %}
+                        {% if forloop.counter0 != 0 %}
+                            <th>
+                                {{ head }}
+                                <i></i>
+                            </th>
+                        {% else %}
+                            <th>{{ head }}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row_values in table.values %}
+                    <tr>
+                        {% for value in row_values %}
+                            {% if value|is_list %}
+                                <td>
+                                    {% for val in value %}
+                                        {{ val }} &nbsp;
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                {% if value == None %}
+                                    <td></td>
+                                {% else %}
+                                    <td>{{ value }}</td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h3>Ссылки не найдены</h3>
+    {% endif %}
+{% endblock content %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/table-ajax.js' %}"></script>
+{% endblock script %}
